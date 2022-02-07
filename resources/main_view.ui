@@ -14,81 +14,84 @@
    <string>ACSI Game Changer</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <layout class="QVBoxLayout" name="quoteInfoLayout">
-      <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Quote Information</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QFormLayout" name="formLayout">
-        <item row="0" column="0">
-         <widget class="QLabel" name="salesmanNameLabel">
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="QWidget" name="">
+       <layout class="QVBoxLayout" name="quoteInfoLayout">
+        <item>
+         <widget class="QLabel" name="label">
           <property name="text">
-           <string>Salesman Name:</string>
+           <string>Quote Information</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="salesmanRowLineEdit"/>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="distributorNameLabel">
-          <property name="text">
-           <string>Distributor Name:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="distributorNameLineEdit"/>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="customerNameLabel">
-          <property name="text">
-           <string>Customer Name:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="customerNameLineEdit"/>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="customerEmailLabel">
-          <property name="text">
-           <string>Customer Email:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLineEdit" name="customerEmailLineEdit"/>
-        </item>
-        <item row="4" column="1">
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
+        <item>
+         <layout class="QFormLayout" name="formLayout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="salesmanNameLabel">
+            <property name="text">
+             <string>Salesman Name:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="salesmanRowLineEdit"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="distributorNameLabel">
+            <property name="text">
+             <string>Distributor Name:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="distributorNameLineEdit"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="customerNameLabel">
+            <property name="text">
+             <string>Customer Name:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="customerNameLineEdit"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="customerEmailLabel">
+            <property name="text">
+             <string>Customer Email:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLineEdit" name="customerEmailLineEdit"/>
+          </item>
+          <item row="4" column="1">
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
         </item>
        </layout>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <widget class="QTreeView" name="treeView"/>
-    </item>
-    <item>
-     <widget class="QWidget" name="widget" native="true">
-      <layout class="QVBoxLayout" name="verticalLayout"/>
+      </widget>
+      <widget class="QTreeView" name="treeView"/>
+      <widget class="QWidget" name="widget" native="true">
+       <layout class="QVBoxLayout" name="verticalLayout"/>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -122,16 +125,16 @@
     <bool>false</bool>
    </attribute>
    <addaction name="separator"/>
-   <addaction name="actionAdd_Run"/>
+   <addaction name="actionAdd_System"/>
   </widget>
   <action name="actionSave">
    <property name="text">
     <string>Save</string>
    </property>
   </action>
-  <action name="actionAdd_Run">
+  <action name="actionAdd_System">
    <property name="text">
-    <string>Add Run</string>
+    <string>Add System</string>
    </property>
    <property name="toolTip">
     <string>Creates a new run of conveyor</string>

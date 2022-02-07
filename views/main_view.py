@@ -1,46 +1,41 @@
 from PyQt5.QtWidgets import QMainWindow, QMenu
 from PyQt5.QtCore import QEvent, Qt
-from PyQt5.Qt import QStandardItem
 from views.main_view_ui import Ui_MainWindow
 
 
 class MainView(QMainWindow):
-    def __init__(self, model, main_controller):
+    def __init__(self, model):
         super().__init__()
 
         self._model = model
-        self._main_controller = main_controller
         self._ui = Ui_MainWindow()
         self._ui.setupUi(self)
+        self.tree_view = self._ui.treeView
 
-        self._ui.treeView.setModel(self._model)
-        self._ui.treeView.setHeaderHidden(True)
-        self._ui.treeView.installEventFilter(self)
-        self._ui.actionAdd_Run.triggered.connect(self._main_controller.add_run)
+        self.tree_view.setModel(self._model)
+        self.tree_view.setHeaderHidden(True)
+        self.tree_view.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.tree_view.customContextMenuRequested.connect(self.item_menu)
+        self._ui.actionAdd_System.triggered.connect(self._model.add_system)
 
-    def eventFilter(self, source, event):
-        if (event.type() == QEvent.ContextMenu and source is self._ui.treeView):
+    def item_menu(self, position):
+        try:
+            index = self.tree_view.selectedIndexes()[-1]
+            item = index.model().itemFromIndex(index)
+            level = 0
+            while index.parent().isValid():
+                index = index.parent()
+                level += 1
             menu = QMenu()
-            menu.addAction('Open Window')
-            if menu.exec_(event.globalPos()):
-                item = source.itemAt(event.pos())
-                print(item.text())
-            return True
-        return super().eventFilter(source, event)
+            del_action = menu.addAction("Delete")
+            del_action.triggered.connect(lambda: self._model.del_item(index.row(), index.parent()))
+            if level == 0:
+                add_run_action = menu.addAction("Add Run")
+                add_run_action.triggered.connect(lambda: self._model.add_run(item))
+            elif level == 1:
+                add_conveyor_action = menu.addAction("Add Conveyor")
+                add_conveyor_action.triggered.connect(lambda: self._model.add_conveyor(item))
 
-    # def open_menu(self, position):
-    #     indexes = self._ui.treeView.selectedIndexes()
-    #     print(indexes)
-    #     if len(indexes) > 0:
-    #         level = 0
-    #         index = indexes[0]
-    #         while index.parent().isValid():
-    #             index = index.parent()
-    #             level += 1
-    #             print(self._ui.treeView.index)
-    #
-    #         menu = QMenu()
-    #         if level == 0:
-    #             menu.addAction(self.tr("Edit System"))
-    #
-    #         menu.exec_(self._ui.treeView.viewport().mapToGlobal(position))
+            menu.exec_(self.tree_view.viewport().mapToGlobal(position))
+        except IndexError as e:
+            print(e)
