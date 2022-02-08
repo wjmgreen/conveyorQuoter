@@ -3,36 +3,36 @@ from PyQt5.QtWidgets import QTreeWidgetItem, QTreeWidget
 from PyQt5.Qt import QStandardItemModel, QStandardItem, QFont, QColor
 
 
-class System(QStandardItem):
+class System(QTreeWidgetItem):
     def __init__(self, text: str):
         super().__init__()
         fnt = QFont('Open Sans', 14)
-        self.setFont(fnt)
-        self.setText(text)
+        self.font = fnt
+        self.text = text
 
 
-class Run(QStandardItem):
+class Run(QTreeWidgetItem):
     def __init__(self, text: str):
         super().__init__()
         fnt = QFont('Open Sans', 12)
-        self.setFont(fnt)
-        self.setText(text)
+        self.font = fnt
+        self.text = text
 
 
-class Conveyor(QStandardItem):
+class Conveyor(QTreeWidgetItem):
     def __init__(self, text: str):
         super().__init__()
         fnt = QFont('Open Sans', 10)
-        self.setFont(fnt)
-        self.setText(text)
+        self.font = fnt
+        self.text = text
 
 
 class Model(QTreeWidget):
     def __init__(self):
         super().__init__()
         self.root = self.invisibleRootItem()
-        self.root.appendRow()
-        System("System1").appendRow(self.root)
+        system = System("System1")
+        system.append
 
     def add_system(self):
         self.root.appendRow(System(f"System{self.root.rowCount() + 1}"))

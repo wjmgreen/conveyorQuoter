@@ -12,7 +12,7 @@ class MainView(QMainWindow):
         self._ui.setupUi(self)
         self.tree_view = self._ui.treeView
 
-        self.tree_view.setModel(self._model)
+        self.tree_view = self._model
         self.tree_view.setHeaderHidden(True)
         self.tree_view.setContextMenuPolicy(Qt.CustomContextMenu)
         self.tree_view.customContextMenuRequested.connect(self.item_menu)
