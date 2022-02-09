@@ -4,19 +4,18 @@ from views.main_view_ui import Ui_MainWindow
 
 
 class MainView(QMainWindow):
-    def __init__(self, model):
+    def __init__(self, controller):
         super().__init__()
-
-        self._model = model
         self._ui = Ui_MainWindow()
         self._ui.setupUi(self)
-        self.tree_view = self._ui.treeView
+        self.tree_widget = self._ui.treeWidget
 
-        self.tree_view = self._model
-        self.tree_view.setHeaderHidden(True)
-        self.tree_view.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.tree_view.customContextMenuRequested.connect(self.item_menu)
-        self._ui.actionAdd_System.triggered.connect(self._model.add_system)
+        self._controller = controller
+
+        self.tree_widget.setHeaderHidden(True)
+        # self.tree_widget.setContextMenuPolicy(Qt.CustomContextMenu)
+        # self.tree_widget.customContextMenuRequested.connect(self.item_menu)
+        # self._ui.actionAdd_System.triggered.connect(self._model.add_system)
 
     def item_menu(self, position):
         try:

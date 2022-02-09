@@ -32,7 +32,6 @@ class Model(QTreeWidget):
         super().__init__()
         self.root = self.invisibleRootItem()
         system = System("System1")
-        system.append
 
     def add_system(self):
         self.root.appendRow(System(f"System{self.root.rowCount() + 1}"))
