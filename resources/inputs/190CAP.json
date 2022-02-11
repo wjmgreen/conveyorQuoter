@@ -1,0 +1,10 @@
+{
+  "QTY": 1,
+  "OAL FT": 10.0,
+  "OAL IN": 0.0,
+  "BF": 21.0,
+  "MOTOR": [0.5, 1.0, 1.5, 2.0],
+  "SPEED": 60.0,
+  "DRIVE": ["Center", "Right Side Mounted Drive", "Left Side Mounted Drive"],
+  "ELEV": 32.0
+}

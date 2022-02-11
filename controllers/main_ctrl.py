@@ -1,4 +1,5 @@
 from PyQt5.QtCore import QObject
+from views.conveyor_view import ConveyorView
 
 
 class MainController(QObject):
@@ -6,12 +7,10 @@ class MainController(QObject):
         super().__init__()
         self._model = model
 
-    def add_run(self):
-        self._model.add_run()
-
-    def add_conveyor(self, run):
-        self._model.add_conveyor(run)
-
+    def show_conveyor_dialog(self):
+        conveyor = ConveyorView()
+        inputs = conveyor.get_inputs()
+        print(inputs)
 
 
 

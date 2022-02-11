@@ -10,7 +10,7 @@ class App(QApplication):
         super(App, self).__init__(sys_argv)
         self.model = Model()
         self.controller = MainController(self.model)
-        self.main_view = MainView(self.controller)
+        self.main_view = MainView(self.model, self.controller)
         self.main_view.show()
 
 
