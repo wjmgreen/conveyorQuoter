@@ -14,12 +14,20 @@ class MainView(QMainWindow):
         self.tree_view = self._ui.treeView
         self.tree_view.setModel(self._model)
 
-
-
         self.tree_view.setHeaderHidden(True)
         self.tree_view.setContextMenuPolicy(Qt.CustomContextMenu)
         self.tree_view.customContextMenuRequested.connect(self.item_menu)
-        self._ui.actionAdd_System.triggered.connect(self._model.add_system)
+        self._ui.actionAdd_System.triggered.connect(lambda: self._controller.add_item(f"OPTION {self._model.rowCount() + 1}"))
+
+        self._model.rowsInserted.connect(self.expand_rows)
+
+    def get_level(self, item):
+        level = 0
+        while item.parent() is not None:
+            print("Hi")
+            item = item.parent()
+            level += 1
+        return level
 
     def item_menu(self, position):
         try:
@@ -27,29 +35,30 @@ class MainView(QMainWindow):
             item = index.model().itemFromIndex(index)
 
             menu = QMenu()
-            del_action = menu.addAction("Delete")
-            del_action.triggered.connect(lambda: self._model.del_item(index.row(), item.parent()))
-
-            def get_level(_item):
-                _level = 0
-                while _item.parent() is not None:
-                    _item = _item.parent()
-                    _level += 1
-                return _level
-
-            level = get_level(item)
+            print(item.parent())
+            level = self.get_level(item)
 
             if level == 0:
                 add_run_action = menu.addAction("Add Run")
-                add_run_action.triggered.connect(lambda: self._model.add_run(item))
+                add_run_action.triggered.connect(lambda: self._controller.add_item(f"ROW {item.rowCount() + 1}", item))
+                del_action = menu.addAction("Delete")
+                del_action.triggered.connect(lambda: self._controller.del_item(index.row(), item.parent()))
                 self.tree_view.expand(index)
             elif level == 1:
                 add_conveyor_action = menu.addAction("Add Conveyor")
-                add_conveyor_action.triggered.connect(lambda: self._controller.show_conveyor_dialog())
-                add_conveyor_action.triggered.connect(lambda: self._model.add_conveyor(item))
-                self.tree_view.expand(index)
-
+                add_conveyor_action.triggered.connect(lambda: self._controller.build_conveyor_base(item))
+                del_action = menu.addAction("Delete")
+                del_action.triggered.connect(lambda: self._controller.del_item(index.row(), item.parent()))
+            elif level == 2:
+                del_action = menu.addAction("Delete")
+                del_action.triggered.connect(lambda: self._controller.del_item(index.row(), item.parent()))
 
             menu.exec_(self.tree_view.viewport().mapToGlobal(position))
         except IndexError as e:
-            print(e)
+            pass
+
+    def expand_rows(self, parent):
+        level = self.get_level(parent)
+        if level < 3:
+            self.tree_view.expand(parent)
+
